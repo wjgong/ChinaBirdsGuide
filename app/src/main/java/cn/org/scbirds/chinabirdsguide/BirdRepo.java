@@ -28,6 +28,10 @@ public class BirdRepo {
         }
     }
 
+    public void close() {
+        mDbHelper.closeDataBase();
+    }
+
     public Cursor getBirdList() {
         // Open connection to read only
         SQLiteDatabase db = mDbHelper.getReadableDatabase();

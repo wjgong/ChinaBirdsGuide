@@ -110,7 +110,7 @@ public class DBHelper extends SQLiteOpenHelper {
         super.close();
     }
 
-    // Delete databse
+    // Delete database
     public void deleteDataBase() {
         File file = new File(DATABASE_PATH);
         if (file.exists()) {

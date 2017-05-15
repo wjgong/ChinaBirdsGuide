@@ -214,5 +214,11 @@ public class SearchActivity extends AppCompatActivity {
             listView.setAdapter(customAdapter);
             return rootView;
         }
+
+        @Override
+        public void onDestroy() {
+            super.onDestroy();
+            birdRepo.close();
+        }
     }
 }
