@@ -29,12 +29,15 @@ public class CustomAdapter extends CursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
         // FInd fields to populate in inflated template
         TextView tvId = (TextView) view.findViewById(R.id.birdId);
-        TextView tvName = (TextView) view.findViewById(R.id.birdName);
+        TextView tvNameCn = (TextView) view.findViewById(R.id.birdNameCn);
+        TextView tvNameEn = (TextView) view.findViewById(R.id.birdNameEn);
         // Extract properties from cursor
         int id = cursor.getInt(cursor.getColumnIndexOrThrow(Bird.KEY_ID));
-        String name = cursor.getString(cursor.getColumnIndexOrThrow(Bird.KEY_NAME_CN));
+        String nameCn = cursor.getString(cursor.getColumnIndexOrThrow(Bird.KEY_NAME_CN));
+        String nameEn = cursor.getString(cursor.getColumnIndexOrThrow(Bird.KEY_NAME_EN));
         // Populate fields with extracted properties
         tvId.setText(String.valueOf(id));
-        tvName.setText(name);
+        tvNameCn.setText(nameCn);
+        tvNameEn.setText(nameEn);
     }
 }

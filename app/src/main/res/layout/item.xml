@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <LinearLayout
@@ -7,21 +8,30 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <EditText
+        <TextView
             android:id="@+id/birdId"
             android:layout_width="88dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
+            android:inputType="none"
             android:text="ID" />
 
-        <EditText
-            android:id="@+id/birdName"
+        <TextView
+            android:id="@+id/birdNameCn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name" />
+            android:inputType="none"
+            android:text="Name CN"
+            tools:editable="false" />
+
+        <TextView
+            android:id="@+id/birdNameEn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Name En"
+            android:textAlignment="viewEnd" />
     </LinearLayout>
 </RelativeLayout>

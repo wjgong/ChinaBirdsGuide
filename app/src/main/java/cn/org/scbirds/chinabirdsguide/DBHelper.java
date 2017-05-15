@@ -32,20 +32,24 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_TABLE_BIRD = "CREATE TABLE " + Bird.TABLE + "("
+/*        String CREATE_TABLE_BIRD = "CREATE TABLE " + Bird.TABLE + "("
                 + Bird.KEY_ID + " INTEGER, "
                 + Bird.KEY_NAME_CN + " TEXT )";
 
-        db.execSQL(CREATE_TABLE_BIRD);
+        db.execSQL(CREATE_TABLE_BIRD);*/
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Drop older table if existed, all data will be gone!!!
+/*        // Drop older table if existed, all data will be gone!!!
         db.execSQL("DROP TABLE IF EXISTS " + Bird.TABLE);
 
         // Create tables again
-        onCreate(db);
+        onCreate(db);*/
+        if (newVersion > oldVersion) {
+            Log.v("Database Upgrade", "Database version is higher than the old");
+            deleteDataBase();
+        }
     }
 
     // Create an empty database on the system
@@ -104,5 +108,14 @@ public class DBHelper extends SQLiteOpenHelper {
             mDataBase.close();
         }
         super.close();
+    }
+
+    // Delete databse
+    public void deleteDataBase() {
+        File file = new File(DATABASE_PATH);
+        if (file.exists()) {
+            file.delete();
+            System.out.println("delete database file.");
+        }
     }
 }
