@@ -1,5 +1,6 @@
 package cn.org.scbirds.chinabirdsguide;
 
+import android.database.Cursor;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -178,6 +179,11 @@ public class SearchActivity extends AppCompatActivity {
      * A search fragment containing a SearchView and a ListView.
      */
     public static class SearchFragment extends Fragment {
+        private CustomAdapter customAdapter;
+        ListView listView;
+        Cursor cursor;
+        BirdRepo birdRepo;
+
         /**
          * Returns a new instance of this fragment for the given section
          * number.
@@ -191,12 +197,28 @@ public class SearchActivity extends AppCompatActivity {
         }
 
         @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+
+            birdRepo = new BirdRepo(this.getContext());
+            cursor = birdRepo.getBirdList();
+            customAdapter = new CustomAdapter(this.getContext(), cursor, 0);
+        }
+
+        @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_search, container, false);
             SearchView searchView = (SearchView) rootView.findViewById(R.id.search_view);
             ListView listView = (ListView) rootView.findViewById(R.id.list_view);
+            listView.setAdapter(customAdapter);
             return rootView;
+        }
+
+        @Override
+        public void onDestroy() {
+            super.onDestroy();
+            birdRepo.close();
         }
     }
 }
