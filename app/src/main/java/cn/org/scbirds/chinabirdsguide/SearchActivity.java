@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,8 +22,10 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SearchActivity extends AppCompatActivity {
+    private final static String TAG= SearchActivity.class.getName().toString();
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -209,7 +212,29 @@ public class SearchActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_search, container, false);
-            SearchView searchView = (SearchView) rootView.findViewById(R.id.search_view);
+            final SearchView searchView = (SearchView) rootView.findViewById(R.id.search_view);
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    Log.d(TAG, "onQueryTextSubmit");
+                    cursor = birdRepo.getBirdListByKeyword(query);
+                    if (cursor == null) {
+                        Toast.makeText(searchView.getContext(), "No records found!", Toast.LENGTH_LONG).show();
+                    }
+                    customAdapter.swapCursor(cursor);
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    Log.d(TAG, "onQueryTextChange");
+                    cursor = birdRepo.getBirdListByKeyword(newText);
+                    if (cursor != null) {
+                        customAdapter.swapCursor(cursor);
+                    }
+                    return false;
+                }
+            });
             ListView listView = (ListView) rootView.findViewById(R.id.list_view);
             listView.setAdapter(customAdapter);
             return rootView;

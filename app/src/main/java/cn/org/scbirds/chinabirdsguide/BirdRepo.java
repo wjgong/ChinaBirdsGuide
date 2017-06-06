@@ -59,7 +59,7 @@ public class BirdRepo {
                 Bird.KEY_NAME_CN + "," +
                 Bird.KEY_NAME_EN +
                 " FROM " + Bird.TABLE +
-                " WHERE " + Bird.KEY_NAME_CN + Bird.KEY_NAME_EN + "  LIKE  '%" + search + "%'";
+                " WHERE " + Bird.KEY_NAME_CN + "  LIKE  '%" + search + "%'";
 
         Cursor cursor = db.rawQuery(selectQuery, null);
         // looping through all rows and adding to list
